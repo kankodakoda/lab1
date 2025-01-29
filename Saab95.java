@@ -4,8 +4,8 @@ public class Saab95 extends Car{
 
     private boolean turboOn;
 
-    public Saab95(Point pos){
-        super("Saab95", 2, 125, Color.red, pos);
+    public Saab95(double xpos, double ypos){
+        super("Saab95", 2, 125, Color.red, xpos, ypos);
 	    turboOn = false;
     }
 
@@ -44,21 +44,5 @@ public class Saab95 extends Car{
         decrementSpeed(amount);
     }
 
-    @Override
-    public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
-    }
-
-    @Override
-    public void turnLeft() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnLeft'");
-    }
-
-    @Override
-    public void turnRight() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnRight'");
-    }
+    
 }

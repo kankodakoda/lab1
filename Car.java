@@ -7,17 +7,19 @@ public abstract class Car implements Movable{
     protected double currentSpeed; // The current speed of the car
     protected Color color; // Color of the car
     protected String modelName; // The car model name
-    protected Point pos;
-    protected String direction;
+    protected double xPosition;
+    protected double yPosition;
+    protected double directionAngle;
 
-    public Car(String modelName, int nrDoors, double enginePower, Color color, Point pos) {
+    public Car(String modelName, int nrDoors, double enginePower, Color color, double xPosition, double yPosition) {
         this.modelName = modelName;
         this.nrDoors = nrDoors;
         this.enginePower = enginePower;
         this.color = color;
-        this.pos = pos;
+        this.xPosition = xPosition;
+        this.yPosition = yPosition;
         currentSpeed = 0;
-        direction = "N";
+        directionAngle = 0;
     }
 
     public int getNrDoors(){
@@ -48,15 +50,19 @@ public abstract class Car implements Movable{
 	    currentSpeed = 0;
     }
 
+    public double getXPosition() {
+        return xPosition;
+    }
+
+    public double getYPosition() {
+        return yPosition;
+    }
+
     public abstract double speedFactor();
 
     public abstract void incrementSpeed(double amount);
     
     public abstract void decrementSpeed(double amount);
-
-    protected String getDirection() {
-        return "direction";
-    }
 
     // TODO fix this method according to lab pm
     public void gas(double amount){
@@ -70,20 +76,47 @@ public abstract class Car implements Movable{
 
     @Override
     public void move() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'move'");
+        double movementX;
+        double movementY;
+
+        movementX = Math.cos(directionAngle) * speedFactor();
+        movementY = Math.sin(directionAngle) * speedFactor();
+
+        xPosition += movementX;
+        yPosition += movementY;
+        
     }
 
     @Override
-    public void turnLeft() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnLeft'");
+    public void turnLeft(double amount) {
+        directionAngle = Math.toRadians(directionAngle);
+        amount = Math.toRadians(amount);
+
+        if (amount >= 0) {
+            directionAngle += amount;
+            if (directionAngle >= 2 * Math.PI) {
+                directionAngle -= 2 * Math.PI;
+            } 
+            directionAngle = Math.toDegrees(directionAngle);
+        }
+        
+        else{
+            System.out.println("Invalid");
+        }
     }
 
     @Override
-    public void turnRight() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'turnRight'");
+    public void turnRight(double amount) {
+        directionAngle = Math.toRadians(directionAngle);
+        amount = Math.toRadians(amount);
+        
+          if (amount >= 0) {
+            directionAngle -= amount;
+            if (directionAngle <= 2 * Math.PI) {
+                directionAngle += 2 * Math.PI;
+            }
+            directionAngle = Math.toDegrees(directionAngle);
+        }
     }
 }
 
