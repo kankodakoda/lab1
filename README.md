@@ -2,4 +2,4 @@
 Lab assignment 1 in the course Object-oriented Programming and Design, GU/Chalmers
 
 See Canvas for instructions.
-This is an edit by be
+This is an edit by me
