@@ -1,48 +1,48 @@
 import java.awt.*;
 
-public class Saab95 extends Car{
+public class Saab95 extends Car {
 
     private boolean turboOn;
 
-    public Saab95(double xpos, double ypos){
+    public Saab95(double xpos, double ypos) {
         super("Saab95", 2, 125, Color.red, xpos, ypos);
-	    turboOn = false;
+        turboOn = false;
     }
 
-    public void setTurboOn(){
-	    turboOn = true;
+    public boolean getTurboOn() {
+        return turboOn;
     }
 
-    public void setTurboOff(){
-	    turboOn = false;
+    public void setTurboOn() {
+        turboOn = true;
     }
-    
+
+    public void setTurboOff() {
+        turboOn = false;
+    }
+
     @Override
-    public double speedFactor(){
+    public double speedFactor() {
         double turbo = 1;
-        if(turboOn) turbo = 1.3;
+        if (turboOn)
+            turbo = 1.3;
         return enginePower * 0.01 * turbo;
     }
 
     @Override
-    public void incrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+    public void incrementSpeed(double amount) {
+        if (getCurrentSpeed() + speedFactor() * amount > enginePower)
+            System.out.println("Current speed can't be higher than engine power");
+        else
+            currentSpeed = getCurrentSpeed() + speedFactor() * amount;
     }
 
     @Override
-    public void decrementSpeed(double amount){
-        currentSpeed = getCurrentSpeed() - speedFactor() * amount;
-    }
-    
-    // TODO fix this method according to lab pm
-    public void gas(double amount){
-        incrementSpeed(amount);
+    public void decrementSpeed(double amount) {
+        if (getCurrentSpeed() - speedFactor() * amount < 0)
+            System.out.println("Current speed can't be lower than 0");
+        else
+            currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 
-    // TODO fix this method according to lab pm
-    public void brake(double amount){
-        decrementSpeed(amount);
-    }
-
-    
 }

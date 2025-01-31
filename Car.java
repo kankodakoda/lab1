@@ -1,7 +1,7 @@
 import java.awt.*;
 
-public abstract class Car implements Movable{
-    //Some variables
+public abstract class Car implements Movable {
+
     protected int nrDoors; // Number of doors on the car
     protected double enginePower; // Engine power of the car
     protected double currentSpeed; // The current speed of the car
@@ -19,35 +19,48 @@ public abstract class Car implements Movable{
         this.xPosition = xPosition;
         this.yPosition = yPosition;
         currentSpeed = 0;
-        directionAngle = 0;
+        directionAngle = 90;
     }
 
-    public int getNrDoors(){
+    public int getNrDoors() {
         return nrDoors;
     }
-    
-    public double getEnginePower(){
+
+    public double getEnginePower() {
         return enginePower;
     }
 
-    public double getCurrentSpeed(){
+    public double getCurrentSpeed() {
         return currentSpeed;
     }
 
-    public Color getColor(){
+    public void setCurrentSpeed(double speed) {
+        if (speed <= enginePower && speed > 0)
+            currentSpeed = speed;
+    }
+
+    public Color getColor() {
         return color;
     }
 
-    public void setColor(Color clr){
-	    color = clr;
+    public String getModelName() {
+        return modelName;
     }
 
-    public void startEngine(){
-	    currentSpeed = 0.1;
+    public double getdirectionAngle() {
+        return directionAngle;
     }
 
-    public void stopEngine(){
-	    currentSpeed = 0;
+    public void setColor(Color clr) {
+        color = clr;
+    }
+
+    public void startEngine() {
+        currentSpeed = 0.1;
+    }
+
+    public void stopEngine() {
+        currentSpeed = 0;
     }
 
     public double getXPosition() {
@@ -60,17 +73,23 @@ public abstract class Car implements Movable{
 
     public abstract double speedFactor();
 
-    public abstract void incrementSpeed(double amount);
-    
-    public abstract void decrementSpeed(double amount);
+    protected abstract void incrementSpeed(double amount);
 
-    // TODO fix this method according to lab pm
-    public void gas(double amount){
+    protected abstract void decrementSpeed(double amount);
+
+    public void gas(double amount) {
+        if (amount < 0 || amount > 1) {
+            System.out.println("Ogiltigt värde");
+            return; // Stoppar metoden från att fortsätta
+        }
         incrementSpeed(amount);
     }
 
-    // TODO fix this method according to lab pm
-    public void brake(double amount){
+    public void brake(double amount) {
+        if (amount < 0 || amount > 1) {
+            System.out.println("Not valid");
+            return;
+        }
         decrementSpeed(amount);
     }
 
@@ -79,12 +98,14 @@ public abstract class Car implements Movable{
         double movementX;
         double movementY;
 
-        movementX = Math.cos(directionAngle) * speedFactor();
-        movementY = Math.sin(directionAngle) * speedFactor();
+        double directionAngleRadians = Math.toRadians(directionAngle);
+
+        movementX = Math.cos(directionAngleRadians) * speedFactor();
+        movementY = Math.sin(directionAngleRadians) * speedFactor();
 
         xPosition += movementX;
         yPosition += movementY;
-        
+
     }
 
     @Override
@@ -96,11 +117,11 @@ public abstract class Car implements Movable{
             directionAngle += amount;
             if (directionAngle >= 2 * Math.PI) {
                 directionAngle -= 2 * Math.PI;
-            } 
+            }
             directionAngle = Math.toDegrees(directionAngle);
         }
-        
-        else{
+
+        else {
             System.out.println("Invalid");
         }
     }
@@ -109,14 +130,14 @@ public abstract class Car implements Movable{
     public void turnRight(double amount) {
         directionAngle = Math.toRadians(directionAngle);
         amount = Math.toRadians(amount);
-        
-          if (amount >= 0) {
+
+        if (amount >= 0) {
             directionAngle -= amount;
-            if (directionAngle <= 2 * Math.PI) {
+            if (directionAngle < 0) {
                 directionAngle += 2 * Math.PI;
             }
             directionAngle = Math.toDegrees(directionAngle);
+
         }
     }
 }
-
