@@ -6,25 +6,44 @@ import org.junit.*;
 
 public class CarTest {
 
-    private Car saab;
-    private Car volvo;
+    private Car saabCar;
+    private Car volvoCar;
+    private Volvo240 volvo;
+    private Saab95 saab;
 
     @Before
     public void setUp() {
+        saabCar = new Saab95(50, 50);
+        volvoCar = new Volvo240(20, 20);
         saab = new Saab95(50, 50);
         volvo = new Volvo240(20, 20);
+
     }
 
     @Test
     public void checkAttributes() {
-        assertEquals("Saab95", saab.modelName);
-        assertEquals(2, saab.nrDoors);
-        assertEquals(125.0, saab.enginePower, 0.001);
-        assertEquals(Color.red, saab.color);
-        assertEquals("Volvo240", volvo.modelName);
-        assertEquals(4, volvo.nrDoors);
-        assertEquals(100.0, volvo.enginePower, 0.001);
-        assertEquals(Color.black, volvo.color);
+        assertEquals("Saab95", saabCar.modelName);
+        assertEquals(2, saabCar.nrDoors);
+        assertEquals(125.0, saabCar.enginePower, 0.001);
+        assertEquals(Color.red, saabCar.color);
+        assertEquals("Volvo240", volvoCar.modelName);
+        assertEquals(4, volvoCar.nrDoors);
+        assertEquals(100.0, volvoCar.enginePower, 0.001);
+        assertEquals(Color.black, volvoCar.color);
+    }
+
+    // Test getters
+    @Test
+    public void testGetters() {
+        assertEquals(4, volvoCar.getNrDoors());
+        assertEquals(100, volvoCar.getEnginePower(), 0.001);
+        assertEquals(0, volvoCar.getCurrentSpeed(), 0.001);
+        assertEquals(Color.black, volvoCar.getColor());
+        assertEquals("Volvo240", volvoCar.getModelName());
+        assertEquals(90, volvoCar.getdirectionAngle(), 0.001);
+        assertEquals(20, volvoCar.getXPosition(), 0.001);
+        assertEquals(20, volvoCar.getYPosition(), 0.001);
+
     }
 
     // Volvo tests
@@ -37,7 +56,13 @@ public class CarTest {
     public void testVolvoGas() {
         double previousSpeed = volvo.getCurrentSpeed();
         volvo.gas(1);
+        System.out.println(volvo.getCurrentSpeed());
         assertTrue(volvo.getCurrentSpeed() > previousSpeed);
+
+        previousSpeed = volvo.getCurrentSpeed();
+        volvo.gas(-1);
+        assertTrue(volvo.getCurrentSpeed() == previousSpeed);
+        
     }
 
     @Test
@@ -46,6 +71,10 @@ public class CarTest {
         double previousSpeed = volvo.getCurrentSpeed();
         volvo.brake(1);
         assertTrue(volvo.getCurrentSpeed() < previousSpeed);
+
+        previousSpeed = volvo.getCurrentSpeed();
+        volvo.brake(-1);
+        assertTrue(volvo.getCurrentSpeed() == previousSpeed);
     }
 
     // Saab tests
@@ -65,9 +94,9 @@ public class CarTest {
 
     @Test
     public void testSaabGas() {
-        double previousSpeed = saab.getCurrentSpeed();
-        saab.gas(1);
-        assertTrue(saab.getCurrentSpeed() > previousSpeed);
+        double previousSpeed = saabCar.getCurrentSpeed();
+        saabCar.gas(1);
+        assertTrue(saabCar.getCurrentSpeed() > previousSpeed);
     }
 
     @Test
@@ -78,7 +107,20 @@ public class CarTest {
         assertTrue(saab.getCurrentSpeed() < previousSpeed);
     }
 
+    @Test
+    public void testSpeedFactor() {
+        saab.gas(1);
+        saab.setTurboOn();
+        assertEquals(1.6, saab.speedFactor(), 0.1);
+    }
+
     // Car tests
+    @Test
+    public void testSetColor() {
+        volvo.setColor(Color.yellow);
+        assertEquals(Color.yellow, volvo.getColor());
+    }
+
     @Test
     public void testMovement() {
         saab.turnLeft(10);
@@ -92,12 +134,36 @@ public class CarTest {
     public void testTurnRight() {
         volvo.turnRight(10);
         assertEquals(80, volvo.getdirectionAngle(), 0.001);
+
+        double previousAngle = volvo.getdirectionAngle();
+        volvo.turnRight(360);
+        assertEquals(previousAngle, volvo.getdirectionAngle(), 0.001);
+    }
+
+    @Test
+    public void testTurnRightInvalidInput() {
+        double previousAngle = volvo.getdirectionAngle();
+        System.out.println(volvo.getdirectionAngle());
+        volvo.turnRight(-10);
+        System.out.println(volvo.getdirectionAngle());
+        assertEquals(previousAngle, volvo.getdirectionAngle(), 0.001);
     }
 
     @Test
     public void testTurnLeft() {
         volvo.turnLeft(10);
         assertEquals(100, volvo.getdirectionAngle(), 0.001);
+
+        double previousAngle = volvo.getdirectionAngle();
+        volvo.turnLeft(360);
+        assertEquals(previousAngle, volvo.getdirectionAngle(), 0.001);
+    }
+
+    @Test
+    public void testTurnLeftInvalidInput() {
+        double previousAngle = volvo.getdirectionAngle();
+        volvo.turnLeft(-10);
+        assertEquals(previousAngle, volvo.getdirectionAngle(), 0.001);
     }
 
     @Test
@@ -110,5 +176,32 @@ public class CarTest {
 
         assertTrue(volvo.getXPosition() > previousXPos);
         assertTrue(volvo.getYPosition() > previousYPos);
+    }
+
+    @Test
+    public void testStartEngine() {
+        volvo.startEngine();
+        assertEquals(0.1, volvo.getCurrentSpeed(), 0.001);
+    }
+
+    @Test
+    public void testStopEngine() {
+        volvo.gas(1);
+        volvo.stopEngine();
+        assertEquals(0, volvo.getCurrentSpeed(), 0.001);
+    }
+
+    @Test
+    public void testIncrementSpeedValidEntry() {
+        double previousSpeed = volvoCar.getCurrentSpeed();
+        volvoCar.incrementSpeed(150);
+        assertEquals(previousSpeed, volvoCar.getCurrentSpeed(), 0.001);
+    }
+
+    @Test
+    public void testDecrementSpeedValidEntry() {
+        double previousSpeed = volvoCar.getCurrentSpeed();
+        volvoCar.decrementSpeed(150);
+        assertEquals(previousSpeed, volvoCar.getCurrentSpeed(), 0.001);
     }
 }

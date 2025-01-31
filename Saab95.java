@@ -28,21 +28,4 @@ public class Saab95 extends Car {
             turbo = 1.3;
         return enginePower * 0.01 * turbo;
     }
-
-    @Override
-    public void incrementSpeed(double amount) {
-        if (getCurrentSpeed() + speedFactor() * amount > enginePower)
-            System.out.println("Current speed can't be higher than engine power");
-        else
-            currentSpeed = getCurrentSpeed() + speedFactor() * amount;
-    }
-
-    @Override
-    public void decrementSpeed(double amount) {
-        if (getCurrentSpeed() - speedFactor() * amount < 0)
-            System.out.println("Current speed can't be lower than 0");
-        else
-            currentSpeed = getCurrentSpeed() - speedFactor() * amount;
-    }
-
 }

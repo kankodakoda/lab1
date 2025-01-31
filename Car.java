@@ -34,11 +34,6 @@ public abstract class Car implements Movable {
         return currentSpeed;
     }
 
-    public void setCurrentSpeed(double speed) {
-        if (speed <= enginePower && speed > 0)
-            currentSpeed = speed;
-    }
-
     public Color getColor() {
         return color;
     }
@@ -73,10 +68,6 @@ public abstract class Car implements Movable {
 
     public abstract double speedFactor();
 
-    protected abstract void incrementSpeed(double amount);
-
-    protected abstract void decrementSpeed(double amount);
-
     public void gas(double amount) {
         if (amount < 0 || amount > 1) {
             System.out.println("Ogiltigt värde");
@@ -91,6 +82,20 @@ public abstract class Car implements Movable {
             return;
         }
         decrementSpeed(amount);
+    }
+
+    public void incrementSpeed(double amount) {
+        if (getCurrentSpeed() + speedFactor() * amount > enginePower)
+            System.out.println("Current speed can't be higher than engine power");
+        else
+            currentSpeed = getCurrentSpeed() + speedFactor() * amount;
+    }
+
+    public void decrementSpeed(double amount) {
+        if (getCurrentSpeed() - speedFactor() * amount < 0)
+            System.out.println("Current speed can't be lower than 0");
+        else
+            currentSpeed = getCurrentSpeed() - speedFactor() * amount;
     }
 
     @Override
@@ -110,10 +115,10 @@ public abstract class Car implements Movable {
 
     @Override
     public void turnLeft(double amount) {
-        directionAngle = Math.toRadians(directionAngle);
-        amount = Math.toRadians(amount);
 
-        if (amount >= 0) {
+        if (amount > 0) {
+            directionAngle = Math.toRadians(directionAngle);
+            amount = Math.toRadians(amount);
             directionAngle += amount;
             if (directionAngle >= 2 * Math.PI) {
                 directionAngle -= 2 * Math.PI;
@@ -128,10 +133,10 @@ public abstract class Car implements Movable {
 
     @Override
     public void turnRight(double amount) {
-        directionAngle = Math.toRadians(directionAngle);
-        amount = Math.toRadians(amount);
 
-        if (amount >= 0) {
+        if (amount > 0) {
+            directionAngle = Math.toRadians(directionAngle);
+            amount = Math.toRadians(amount);
             directionAngle -= amount;
             if (directionAngle < 0) {
                 directionAngle += 2 * Math.PI;
@@ -139,5 +144,7 @@ public abstract class Car implements Movable {
             directionAngle = Math.toDegrees(directionAngle);
 
         }
+        else
+            System.out.println("Invalid");
     }
 }
