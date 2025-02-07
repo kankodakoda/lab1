@@ -45,6 +45,9 @@ public class Mercedes extends Truck implements Loadable {
             incrementSpeed(amount);
     }
 
+    // TODO move function to get X and Y position of truck
+    // TODO make sure the cars loaded have the same X, Y positions as the truck
+
     @Override
     public void loadCar(Car car) {
         if (!rampRaised) {

@@ -30,7 +30,8 @@ public abstract class Truck extends Car {
     }
 
     //TODO Bilverkstad med parametrisk polymorfism
-    
-    
+    // TODO move function to get X and Y position of truck
+    // TODO JUnit- tests for lab 2
+    // 
 
 }
