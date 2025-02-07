@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public interface Loadable {
 
-    void loadCar();
+    void loadCar(Car car);
 
-    void unloadCar();
+    void unloadCar(Car car);
 }

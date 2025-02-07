@@ -1,7 +1,7 @@
 import java.awt.*;
 import java.util.*;
 
-public abstract class Truck extends Car{
+public abstract class Truck extends Car {
 
     private RampAbility rampAbility;
 
@@ -19,11 +19,18 @@ public abstract class Truck extends Car{
     }
 
     public void raiseRamp() {
-        rampAbility.raiseRamp();
+        if (currentSpeed == 0)
+            rampAbility.raiseRamp();
+        else
+            System.out.println("Truck must be standing still");
     }
 
     public void lowerRamp() {
         rampAbility.lowerRamp();
     }
+
+    //TODO Bilverkstad med parametrisk polymorfism
+    
+    
 
 }
