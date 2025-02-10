@@ -10,6 +10,10 @@ public class CarTest {
     private Car volvoCar;
     private Volvo240 volvo;
     private Saab95 saab;
+    private Truck truckScania;
+    private Truck truckMercedes;
+    private Scania scania;
+    private Mercedes mercedes;
 
     @Before
     public void setUp() {
@@ -17,6 +21,8 @@ public class CarTest {
         volvoCar = new Volvo240(20, 20);
         saab = new Saab95(50, 50);
         volvo = new Volvo240(20, 20);
+        scania = new Scania(50, 50);
+        mercedes = new Mercedes(20, 20);
 
     }
 
@@ -30,6 +36,16 @@ public class CarTest {
         assertEquals(4, volvoCar.nrDoors);
         assertEquals(100.0, volvoCar.enginePower, 0.001);
         assertEquals(Color.black, volvoCar.color);
+
+        assertEquals("Scania", truckScania.getModelName());
+        assertEquals(2, truckScania.getEnginePower(), 0.001);
+        assertEquals(90.0, truckScania.getEnginePower(), 0.001);
+        assertEquals(Color.magenta, truckScania.getColor());
+        assertEquals("Mercedes", truckMercedes.getModelName());
+        assertEquals(2, truckMercedes.getNrDoors());
+        assertEquals(90.0, truckMercedes.getEnginePower(), 0.001);
+        assertEquals(Color.cyan, truckMercedes.getColor());
+
     }
 
     // Test getters
@@ -62,7 +78,7 @@ public class CarTest {
         previousSpeed = volvo.getCurrentSpeed();
         volvo.gas(-1);
         assertTrue(volvo.getCurrentSpeed() == previousSpeed);
-        
+
     }
 
     @Test
@@ -203,5 +219,28 @@ public class CarTest {
         double previousSpeed = volvoCar.getCurrentSpeed();
         volvoCar.decrementSpeed(150);
         assertEquals(previousSpeed, volvoCar.getCurrentSpeed(), 0.001);
+    }
+
+    @Test
+    public void testScaniaGas() {
+        double previousSpeed = truckScania.getCurrentSpeed();
+        truckScania.gas(1);
+        assertTrue(truckScania.getCurrentSpeed() > previousSpeed);
+    }
+
+    @Test
+    public void testScaniaGasWithRamp() {
+
+    }
+
+    @Test
+    public void testOnOffLift() {
+
+    }
+
+    @Test
+    public void testtruckSpeedFactor() {
+        truck.gas(1);
+        assertEquals(1.6, truck.speedFactor(), 0.1);
     }
 }

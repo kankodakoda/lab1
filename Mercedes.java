@@ -4,18 +4,15 @@ import java.util.Stack;
 public class Mercedes extends Truck implements Loadable {
 
     private boolean rampRaised;
-    private int loadSize;
+    private final int loadSize;
     private final Stack<Car> loadedCars;
-    private int maxCapacity;
 
-    public Mercedes(String modelName, int nrDoors, double enginePower, Color color, double xPosition, double yPosition,
-            int loadSize) {
-        super(modelName, nrDoors, enginePower, color, xPosition, yPosition, new OnOffLift());
+    public Mercedes(double xPosition, double yPosition) {
+        super("Mercedes", 2, 90, Color.cyan, xPosition, yPosition, new OnOffLift());
 
         rampRaised = false;
-        this.loadSize = loadSize;
         loadedCars = new Stack<Car>();
-        maxCapacity = 20;
+        loadSize = 20;
     }
 
     @Override
@@ -26,11 +23,6 @@ public class Mercedes extends Truck implements Loadable {
     @Override
     public void lowerRamp() {
         rampRaised = false;
-    }
-
-    @Override
-    public double speedFactor() {
-        return enginePower * 0.01;
     }
 
     @Override
@@ -54,7 +46,7 @@ public class Mercedes extends Truck implements Loadable {
             System.out.println("cant load ramp is down ");
             return;
         }
-        if (loadSize >= maxCapacity) {
+        if (loadSize >= loadSize) {
             System.out.println("truck full");
             return;
         }
