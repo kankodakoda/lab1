@@ -59,4 +59,6 @@ public class Scania extends Truck {
 
     }
 
+    // TODO move function to get X and Y position of truck
+    
 }
