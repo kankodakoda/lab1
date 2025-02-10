@@ -243,4 +243,18 @@ public class CarTest {
         truck.gas(1);
         assertEquals(1.6, truck.speedFactor(), 0.1);
     }
+        @Test
+    public void testScaniaRampLimits() {
+        scania.raiseRamp(80);
+        assertEquals(70, scania.getrampAngle(), 0.001);
+
+        scania.lowerRamp(-10);
+        assertEquals(0, scania.getrampAngle(), 0.001);
+    }
+    @Test
+    public void testScaniaRampWhileMoving() {
+        scania.gas(0.5);
+        scania.raiseRamp(10);
+        assertEquals(0, scania.getrampAngle(), 0.001);
+    }
 }
