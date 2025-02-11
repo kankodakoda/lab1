@@ -18,6 +18,10 @@ public abstract class Truck extends Car {
         this.rampAbility = rampAbility;
     }
 
+    public RampAbility getRampAbility() {
+        return rampAbility;
+    }
+
     public void raiseRamp() {
         if (currentSpeed == 0)
             rampAbility.raiseRamp();
