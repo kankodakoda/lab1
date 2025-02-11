@@ -29,9 +29,12 @@ public abstract class Truck extends Car {
         rampAbility.lowerRamp();
     }
 
-    //TODO Bilverkstad med parametrisk polymorfism
+    @Override
+    public double speedFactor() {
+        return enginePower * 0.01;
+    }
     // TODO move function to get X and Y position of truck
     // TODO JUnit- tests for lab 2
-    // 
+    //
 
 }

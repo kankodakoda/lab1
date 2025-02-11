@@ -3,11 +3,11 @@ import java.util.List;
 
 public class Workshop<T> {
     private final int capacity; // Max antal bilar verkstaden kan ta
-    private final List<T> vehicles; // Lista för att lagra fordon
+    private final ArrayList<T> vehicles; // Lista för att lagra fordon
 
     public Workshop(int capacity) {
         this.capacity = capacity;
-        this.vehicles = new ArrayList<>();
+        this.vehicles = new ArrayList<T>();
     }
 
     // Lägg till ett fordon i verkstaden
