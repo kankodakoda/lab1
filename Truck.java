@@ -18,7 +18,12 @@ public abstract class Truck extends Car {
         this.rampAbility = rampAbility;
     }
 
+    public RampAbility getRampAbility() {
+        return rampAbility;
+    }
+
     public void raiseRamp() {
+        // Raise if truck is standing still
         if (currentSpeed == 0)
             rampAbility.raiseRamp();
         else
@@ -33,8 +38,5 @@ public abstract class Truck extends Car {
     public double speedFactor() {
         return enginePower * 0.01;
     }
-    // TODO move function to get X and Y position of truck
-    // TODO JUnit- tests for lab 2
-    //
-
+    
 }
