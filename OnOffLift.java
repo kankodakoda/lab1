@@ -1,19 +1,23 @@
 class OnOffLift implements RampAbility {
 
-    private boolean rampUp;
+    private boolean rampRaised;
 
     public OnOffLift() {
-        rampUp = false;
+        rampRaised = false;
     }
-    
+
+    public boolean getRampRaised() {
+        return rampRaised;
+    }
+
     @Override
     public void raiseRamp() {
-        rampUp = true;
+        rampRaised = true;
     }
 
     @Override
     public void lowerRamp() {
-        rampUp = false;
+        rampRaised = false;
     }
-    
+
 }

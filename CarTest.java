@@ -14,6 +14,7 @@ public class CarTest {
     private Truck truckMercedes;
     private Scania scania;
     private Mercedes mercedes;
+    private Workshop workshop;
 
     @Before
     public void setUp() {
@@ -23,6 +24,7 @@ public class CarTest {
         volvo = new Volvo240(20, 20);
         scania = new Scania(50, 50);
         mercedes = new Mercedes(20, 20);
+        workshop = new Workshop<>(10);
 
     }
 
@@ -221,6 +223,8 @@ public class CarTest {
         assertEquals(previousSpeed, volvoCar.getCurrentSpeed(), 0.001);
     }
 
+    // Scania tests
+
     @Test
     public void testScaniaGas() {
         double previousSpeed = truckScania.getCurrentSpeed();
@@ -235,10 +239,12 @@ public class CarTest {
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
     }
 
+    // Mercedes tests
+
     @Test
     public void testOnOffLift() {
         mercedes.raiseRamp();
-        assertTrue(true, mercedes.raiseRamp());
+        assertTrue(true);
     }
 
     @Test
@@ -269,20 +275,33 @@ public class CarTest {
         scania.gas(0.5);
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
     }
+
     @Test
-    public void testCarTransportLoadAndUnload(){
-        transporter.lowerRamp();
-        transporter.loadcar();
-        transporter.loadcar();
-        assertEquals(2, transporter.getloadedCars().size());
-        transporter.unloadcar();
-        assertEquals(1, transporter.getloadedCars().size());
-    
+    public void testCarTransportLoadAndUnload() {
+        mercedes.lowerRamp();
+        mercedes.loadCar(saab);
+        mercedes.loadCar(volvo);
+        assertEquals(2, mercedes.getloadedCars().size());
+        mercedes.unloadCar(saab);
+        assertEquals(1, mercedes.getloadedCars().size());
 
     }
+
     @Test
-    public void testWorkshopCapacity(){
-        saabWorkshop.addVehicle(saab);
+    public void testWorkshopCapacity() {
+        workshop.addVehicle(saab);
+        workshop.addVehicle(new Saab95(30, 30));
+        workshop.addVehicle(new Saab95(40, 40));
+        assertEquals(2, vehicles.);
+
+    }
+
+    @Test
+    public void testWorkshopType() {
+        Workshop<Volvo240> Workshop = new Workshop<>(5);
+        Workshop.addVehicle(volvo);
+        assertEquals(1, Workshop. addVehicles());
+
     }
 
 }

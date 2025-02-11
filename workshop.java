@@ -24,7 +24,7 @@ public class Workshop<T> {
     public T removeVehicle() {
         if (!vehicles.isEmpty()) {
             T vehicle = vehicles.remove(vehicles.size() - 1);
-            System.out.println(vehicle + " removed from the workshop.");
+            System.out.println(vehicle.toString() + " removed from the workshop.");
             return vehicle;
         } else {
             System.out.println("No vehicles in the workshop.");
@@ -43,4 +43,9 @@ public class Workshop<T> {
             }
         }
     }
+
+    public int countVehicles(){
+        return vehicles.size();
+    }
+
 }

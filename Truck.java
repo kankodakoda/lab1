@@ -1,8 +1,6 @@
 import java.awt.*;
-import java.util.*;
 
 public abstract class Truck extends Car {
-
     private RampAbility rampAbility;
 
     public Truck(
@@ -23,7 +21,7 @@ public abstract class Truck extends Car {
     }
 
     public void raiseRamp() {
-        // Raise if truck is standing still
+        // Raise ramp if truck is standing still
         if (currentSpeed == 0)
             rampAbility.raiseRamp();
         else
@@ -38,5 +36,5 @@ public abstract class Truck extends Car {
     public double speedFactor() {
         return enginePower * 0.01;
     }
-    
+
 }
