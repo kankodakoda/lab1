@@ -7,6 +7,10 @@ class AngularLift implements RampAbility {
 
     }
 
+    public double getRampAngle() {
+        return rampAngle;
+    }
+
     public void raiseRamp(double amount) {
         // Can raise ramp up to 70 degrees.
         // Can only move while car in not moving

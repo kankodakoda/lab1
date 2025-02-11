@@ -230,31 +230,59 @@ public class CarTest {
 
     @Test
     public void testScaniaGasWithRamp() {
-
+        scania.raiseRamp(40);
+        scania.gas(0.3);
+        assertEquals(0, scania.getCurrentSpeed(), 0.001);
     }
 
     @Test
     public void testOnOffLift() {
-
+        mercedes.raiseRamp();
+        assertTrue(true, mercedes.raiseRamp());
     }
 
     @Test
     public void testtruckSpeedFactor() {
-        truck.gas(1);
-        assertEquals(1.6, truck.speedFactor(), 0.1);
+        truckMercedes.gas(1);
+        assertEquals(1.6, truckMercedes.speedFactor(), 0.1);
     }
-        @Test
+
+    @Test
     public void testScaniaRampLimits() {
-        scania.raiseRamp(80);
+        scania.raiseRamp(80.0);
         assertEquals(70, scania.getrampAngle(), 0.001);
 
         scania.lowerRamp(-10);
         assertEquals(0, scania.getrampAngle(), 0.001);
     }
+
     @Test
     public void testScaniaRampWhileMoving() {
         scania.gas(0.5);
         scania.raiseRamp(10);
         assertEquals(0, scania.getrampAngle(), 0.001);
     }
+
+    @Test
+    public void testScaniaCantMoveWhileRaisRamp() {
+        scania.raiseRamp(70);
+        scania.gas(0.5);
+        assertEquals(0, scania.getCurrentSpeed(), 0.001);
+    }
+    @Test
+    public void testCarTransportLoadAndUnload(){
+        transporter.lowerRamp();
+        transporter.loadcar();
+        transporter.loadcar();
+        assertEquals(2, transporter.getloadedCars().size());
+        transporter.unloadcar();
+        assertEquals(1, transporter.getloadedCars().size());
+    
+
+    }
+    @Test
+    public void testWorkshopCapacity(){
+        saabWorkshop.addVehicle(saab);
+    }
+
 }

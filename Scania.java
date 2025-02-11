@@ -2,19 +2,15 @@ import java.awt.*;
 
 public class Scania extends Truck {
 
-    private double rampAngle;
+    private AngularLift angularLift;
 
     public Scania(double xPosition, double yPosition) {
         super("Scania", 2, 90, Color.magenta, xPosition, yPosition, new AngularLift());
-        rampAngle = 0;
-
-    }
-
-    public double getrampAngle() {
-        return rampAngle;
+        this.angularLift = (AngularLift) rampAbility;
     }
 
     public void raiseRamp(double amount) {
+
         if (getrampAngle() > 0) {
             System.out.println("Cant raise while moving");
             return;
