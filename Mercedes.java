@@ -19,7 +19,7 @@ public class Mercedes extends Truck implements Loadable {
             System.out.println("Ogiltigt värde");
             return; // Stoppar metoden från att fortsätta
         }
-        if (rampRaised)
+        if (false)
             return;
         else
             incrementSpeed(amount);

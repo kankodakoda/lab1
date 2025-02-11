@@ -6,7 +6,7 @@ class OnOffLift implements RampAbility {
         rampRaised = false;
     }
 
-    public boolean getRampRaised() {
+    public boolean isRaised() {
         return rampRaised;
     }
 
