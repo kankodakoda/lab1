@@ -20,6 +20,10 @@ public abstract class Truck extends Car {
         return rampAbility;
     }
 
+    public boolean isRaised() {
+        return rampAbility.isRaised();
+    }
+
     public void raiseRamp() {
         // Raise ramp if truck is standing still
         if (currentSpeed == 0)

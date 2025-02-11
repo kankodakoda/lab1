@@ -13,38 +13,47 @@ public class Mercedes extends Truck implements Loadable {
         loadSize = 20;
     }
 
+    public Stack<Car>getLoadedCars() {
+        return loadedCars;
+    }
+
+    public int getVehicleCount() {
+        return loadedCars.size();
+    }
+
     @Override
     public void gas(double amount) {
+        // Increase velocity of Mercedes
         if (amount < 0 || amount > 1) {
             System.out.println("Ogiltigt värde");
             return; // Stoppar metoden från att fortsätta
         }
-        if (false)
-            return;
-        else
-            incrementSpeed(amount);
+        incrementSpeed(amount);
     }
-
-    // TODO move function to get X and Y position of truck
-    // TODO make sure the cars loaded have the same X, Y positions as the truck
 
     @Override
     public void loadCar(Car car) {
-        if (!rampRaised) {
+        // Loads a car onto the Mercedes
+        if (isRaised()) {
             System.out.println("cant load ramp is down ");
             return;
         }
-        if (loadSize >= loadSize) {
+        else if (car.getModelName() == "Mercedes"){
+            System.out.println("Can't load car transportation");
+            return;
+        }
+        else if (getVehicleCount() >= loadSize) {
             System.out.println("truck full");
             return;
         }
-
+        // TODO: Fix closeness between car and ramp
         loadedCars.push(car);
 
     }
 
     @Override
     public void unloadCar(Car car) {
+        // Removes car from truck
         if (!loadedCars.empty())
             loadedCars.pop();
         else

@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.List;
 
 public class Workshop<T> {
     private final int capacity; // Max antal bilar verkstaden kan ta
@@ -8,6 +7,14 @@ public class Workshop<T> {
     public Workshop(int capacity) {
         this.capacity = capacity;
         this.vehicles = new ArrayList<T>();
+    }
+
+    public int getCapacity() {
+        return capacity;
+    }
+
+    public ArrayList<T> getVehicles() {
+        return vehicles;
     }
 
     // Lägg till ett fordon i verkstaden

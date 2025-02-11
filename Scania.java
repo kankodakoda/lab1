@@ -15,9 +15,16 @@ public class Scania extends Truck {
         this.angularLift = (AngularLift) getRampAbility();
     }
 
+    public double getRampAngle() {
+        return angularLift.getRampAngle();
+    }
+
     public void raiseRamp(double amount) {
         // Use AngularLifts raise by amount function
-        angularLift.raiseRamp(amount);
+        if (currentSpeed == 0)
+            angularLift.raiseRamp(amount);
+        else
+            System.out.println("Truck must be standing still to raise ramp");
     }
 
     public void lowerRamp(double amount) {
@@ -31,8 +38,12 @@ public class Scania extends Truck {
         if (amount < 0 || amount > 1) {
             System.out.println("Ogiltigt värde");
             return; // Stoppar metoden från att fortsätta
-        } else
-            return;
+        } 
+        else if (angularLift.getRampAngle() != 0) {
+            System.out.println("Can't drive if ramp is raised");
+        }
+        else
+            incrementSpeed(amount);
 
     }
 

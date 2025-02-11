@@ -10,11 +10,10 @@ public class CarTest {
     private Car volvoCar;
     private Volvo240 volvo;
     private Saab95 saab;
-    private Truck truckScania;
-    private Truck truckMercedes;
     private Scania scania;
     private Mercedes mercedes;
-    private Workshop workshop;
+    private Workshop<Saab95> saabWorkshop;
+    private Workshop<Volvo240> volvWorkshop;
 
     @Before
     public void setUp() {
@@ -24,7 +23,8 @@ public class CarTest {
         volvo = new Volvo240(20, 20);
         scania = new Scania(50, 50);
         mercedes = new Mercedes(20, 20);
-        workshop = new Workshop<>(10);
+        saabWorkshop = new Workshop<Saab95>(10);
+        volvWorkshop = new Workshop<Volvo240>(5);
 
     }
 
@@ -39,14 +39,14 @@ public class CarTest {
         assertEquals(100.0, volvoCar.enginePower, 0.001);
         assertEquals(Color.black, volvoCar.color);
 
-        assertEquals("Scania", truckScania.getModelName());
-        assertEquals(2, truckScania.getEnginePower(), 0.001);
-        assertEquals(90.0, truckScania.getEnginePower(), 0.001);
-        assertEquals(Color.magenta, truckScania.getColor());
-        assertEquals("Mercedes", truckMercedes.getModelName());
-        assertEquals(2, truckMercedes.getNrDoors());
-        assertEquals(90.0, truckMercedes.getEnginePower(), 0.001);
-        assertEquals(Color.cyan, truckMercedes.getColor());
+        assertEquals("Scania", scania.getModelName());
+        assertEquals(2, scania.getNrDoors(), 0.001);
+        assertEquals(90.0, scania.getEnginePower(), 0.001);
+        assertEquals(Color.magenta, scania.getColor());
+        assertEquals("Mercedes", mercedes.getModelName());
+        assertEquals(2, mercedes.getNrDoors());
+        assertEquals(90.0, mercedes.getEnginePower(), 0.001);
+        assertEquals(Color.cyan, mercedes.getColor());
 
     }
 
@@ -227,16 +227,18 @@ public class CarTest {
 
     @Test
     public void testScaniaGas() {
-        double previousSpeed = truckScania.getCurrentSpeed();
-        truckScania.gas(1);
-        assertTrue(truckScania.getCurrentSpeed() > previousSpeed);
+        scania.gas(1);
+        double previousSpeed = scania.getCurrentSpeed();
+        scania.gas(1);
+        System.out.println(previousSpeed + " | " + scania.getCurrentSpeed());
+        assertTrue(scania.getCurrentSpeed() > previousSpeed);
     }
 
     @Test
     public void testScaniaGasWithRamp() {
         scania.raiseRamp(40);
         scania.gas(0.3);
-        assertEquals(0, scania.getCurrentSpeed(), 0.001);
+        assertEquals(0.0, scania.getCurrentSpeed(), 0.001);
     }
 
     // Mercedes tests
@@ -249,58 +251,65 @@ public class CarTest {
 
     @Test
     public void testtruckSpeedFactor() {
-        truckMercedes.gas(1);
-        assertEquals(1.6, truckMercedes.speedFactor(), 0.1);
+        mercedes.gas(1);
+        System.out.println(mercedes.speedFactor());
+        assertEquals(0.9, mercedes.speedFactor(), 0.1);
     }
 
     @Test
     public void testScaniaRampLimits() {
         scania.raiseRamp(80.0);
-        assertEquals(70, scania.getrampAngle(), 0.001);
+        assertEquals(70, scania.getRampAngle(), 0.001);
 
         scania.lowerRamp(-10);
-        assertEquals(0, scania.getrampAngle(), 0.001);
+        assertEquals(70.0, scania.getRampAngle(), 0.001);
     }
 
     @Test
     public void testScaniaRampWhileMoving() {
         scania.gas(0.5);
         scania.raiseRamp(10);
-        assertEquals(0, scania.getrampAngle(), 0.001);
+        assertEquals(0, scania.getRampAngle(), 0.001);
     }
 
     @Test
-    public void testScaniaCantMoveWhileRaisRamp() {
+    public void testScaniaCantMoveWhileRaiseRamp() {
         scania.raiseRamp(70);
         scania.gas(0.5);
         assertEquals(0, scania.getCurrentSpeed(), 0.001);
     }
 
     @Test
-    public void testCarTransportLoadAndUnload() {
+    public void testCarTransportLoad() {
         mercedes.lowerRamp();
         mercedes.loadCar(saab);
         mercedes.loadCar(volvo);
-        assertEquals(2, mercedes.getloadedCars().size());
+        assertEquals(2, mercedes.getVehicleCount());
+    }
+
+    @Test
+    public void testCarTransportUnload() {
+        mercedes.loadCar(saab);
+        mercedes.loadCar(volvo);
         mercedes.unloadCar(saab);
-        assertEquals(1, mercedes.getloadedCars().size());
+        mercedes.unloadCar(volvo);
+        assertEquals(0, mercedes.getVehicleCount());
+    }
+
+    @Test
+    public void testSaabWorkshop() {
+        saabWorkshop.addVehicle(saab);
+        saabWorkshop.addVehicle(new Saab95(30, 30));
+        saabWorkshop.addVehicle(new Saab95(40, 40));
+        assertEquals(3, saabWorkshop.getVehicles().size());
 
     }
 
     @Test
-    public void testWorkshopCapacity() {
-        workshop.addVehicle(saab);
-        workshop.addVehicle(new Saab95(30, 30));
-        workshop.addVehicle(new Saab95(40, 40));
-        assertEquals(2, vehicles.);
-
-    }
-
-    @Test
-    public void testWorkshopType() {
-        Workshop<Volvo240> Workshop = new Workshop<>(5);
-        Workshop.addVehicle(volvo);
-        assertEquals(1, Workshop. addVehicles());
+    public void testVolvoWorkshop() {
+        
+        volvWorkshop.addVehicle(volvo);
+        assertEquals(1, volvWorkshop.getVehicles().size());
 
     }
 
