@@ -281,9 +281,8 @@ public class CarTest {
 
     @Test
     public void testCarTransportLoad() {
-        mercedes.lowerRamp();
-        mercedes.loadCar(saab);
-        mercedes.loadCar(volvo);
+        mercedes.loadCar(new Saab95(mercedes.getXPosition() + 3, mercedes.getYPosition() - 3));
+        mercedes.loadCar(new Volvo240(mercedes.getXPosition() + 2, mercedes.getYPosition() - 5));
         assertEquals(2, mercedes.getVehicleCount());
     }
 
@@ -312,5 +311,7 @@ public class CarTest {
         assertEquals(1, volvWorkshop.getVehicles().size());
 
     }
+
+    
 
 }

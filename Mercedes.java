@@ -46,8 +46,12 @@ public class Mercedes extends Truck implements Loadable {
             System.out.println("truck full");
             return;
         }
-        // TODO: Fix closeness between car and ramp
-        loadedCars.push(car);
+        else if (car.getXPosition() >= getXPosition() - 5
+              && car.getXPosition() <= getXPosition() + 5
+              && car.getYPosition() >= getYPosition() - 5
+              && car.getXPosition() <= getXPosition() + 5)
+            // Car must be within a 5 m radius of the transport truck to be loaded
+            loadedCars.push(car);
 
     }
 
