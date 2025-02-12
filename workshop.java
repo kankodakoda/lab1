@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Workshop<T> {
+public class Workshop<T extends Car> {
     private final int capacity; // Max antal bilar verkstaden kan ta
     private final ArrayList<T> vehicles; // Lista för att lagra fordon
 
@@ -28,7 +28,7 @@ public class Workshop<T> {
     }
 
     // Ta bort ett fordon från verkstaden
-    public T removeVehicle() {
+    public T removeVehicle() { // Referenser
         if (!vehicles.isEmpty()) {
             T vehicle = vehicles.remove(vehicles.size() - 1);
             System.out.println(vehicle.toString() + " removed from the workshop.");

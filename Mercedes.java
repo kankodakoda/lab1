@@ -21,15 +21,6 @@ public class Mercedes extends Truck implements Loadable {
         return loadedCars.size();
     }
 
-    @Override
-    public void gas(double amount) {
-        // Increase velocity of Mercedes
-        if (amount < 0 || amount > 1) {
-            System.out.println("Ogiltigt värde");
-            return; // Stoppar metoden från att fortsätta
-        }
-        incrementSpeed(amount);
-    }
 
     @Override
     public void loadCar(Car car) {
@@ -38,7 +29,7 @@ public class Mercedes extends Truck implements Loadable {
             System.out.println("cant load ramp is down ");
             return;
         }
-        else if (car.getModelName() == "Mercedes"){
+        else if (car.getModelName() == "Mercedes"){ // White list
             System.out.println("Can't load car transportation");
             return;
         }
@@ -51,7 +42,7 @@ public class Mercedes extends Truck implements Loadable {
               && car.getYPosition() >= getYPosition() - 5
               && car.getXPosition() <= getXPosition() + 5)
             // Car must be within a 5 m radius of the transport truck to be loaded
-            loadedCars.push(car);
+            loadedCars.push(car); // Dela upp logik i metoder
 
     }
 

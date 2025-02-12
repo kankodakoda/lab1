@@ -30,14 +30,14 @@ public class CarTest {
 
     @Test
     public void checkAttributes() {
-        assertEquals("Saab95", saabCar.modelName);
-        assertEquals(2, saabCar.nrDoors);
-        assertEquals(125.0, saabCar.enginePower, 0.001);
-        assertEquals(Color.red, saabCar.color);
-        assertEquals("Volvo240", volvoCar.modelName);
-        assertEquals(4, volvoCar.nrDoors);
-        assertEquals(100.0, volvoCar.enginePower, 0.001);
-        assertEquals(Color.black, volvoCar.color);
+        assertEquals("Saab95", saabCar.getModelName());
+        assertEquals(2, saabCar.getNrDoors());
+        assertEquals(125.0, saabCar.getEnginePower(), 0.001);
+        assertEquals(Color.red, saabCar.getColor());
+        assertEquals("Volvo240", volvoCar.getModelName());
+        assertEquals(4, volvoCar.getNrDoors());
+        assertEquals(100.0, volvoCar.getEnginePower(), 0.001);
+        assertEquals(Color.black, volvoCar.getColor());
 
         assertEquals("Scania", scania.getModelName());
         assertEquals(2, scania.getNrDoors(), 0.001);

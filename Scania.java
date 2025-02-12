@@ -21,7 +21,7 @@ public class Scania extends Truck {
 
     public void raiseRamp(double amount) {
         // Use AngularLifts raise by amount function
-        if (currentSpeed == 0)
+        if (getCurrentSpeed() == 0)
             angularLift.raiseRamp(amount);
         else
             System.out.println("Truck must be standing still to raise ramp");

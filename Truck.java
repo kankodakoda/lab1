@@ -26,7 +26,7 @@ public abstract class Truck extends Car {
 
     public void raiseRamp() {
         // Raise ramp if truck is standing still
-        if (currentSpeed == 0)
+        if (getCurrentSpeed() == 0)
             rampAbility.raiseRamp();
         else
             System.out.println("Truck must be standing still");
@@ -38,7 +38,7 @@ public abstract class Truck extends Car {
 
     @Override
     public double speedFactor() {
-        return enginePower * 0.01;
+        return getEnginePower() * 0.01;
     }
 
 }
