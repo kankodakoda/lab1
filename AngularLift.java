@@ -7,22 +7,13 @@ class AngularLift implements RampAbility {
         isRaised = false;
     }
 
-    public double getRampAngle() {
-        return rampAngle;
+    @Override
+    public boolean isRaised() {
+        return isRaised;
     }
 
-    public void lowerRamp(double amount) {
-        // Lower ramp by amount degrees
-        if (amount <= 0)
-            return;
-        if (rampAngle - amount < 0){
-            System.out.println("Ramp can't be lowered anymore");
-            rampAngle = 0;
-        }
-        else
-            rampAngle -= amount;
-            if (rampAngle != 70)
-                isRaised = false;
+    public double getRampAngle() {
+        return rampAngle;
     }
 
     public void raiseRamp(double amount) {
@@ -39,6 +30,20 @@ class AngularLift implements RampAbility {
                 isRaised = true;
 
     }
+    
+    public void lowerRamp(double amount) {
+        // Lower ramp by amount degrees
+        if (amount <= 0)
+            return;
+        if (rampAngle - amount < 0){
+            System.out.println("Ramp can't be lowered anymore");
+            rampAngle = 0;
+        }
+        else
+            rampAngle -= amount;
+            if (rampAngle != 70)
+                isRaised = false;
+    }
 
     @Override
     public void raiseRamp() {
@@ -52,8 +57,4 @@ class AngularLift implements RampAbility {
         rampAngle = 0;
     }
 
-    @Override
-    public boolean isRaised() {
-        return isRaised;
-    }
 }
