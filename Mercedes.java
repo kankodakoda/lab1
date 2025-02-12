@@ -39,7 +39,7 @@ public class Mercedes extends Truck implements Loadable {
         }
         else if (isCarWithinRange(car))
             // Car must be within a 5 m radius of the transport truck to be loaded
-            transportationBed.load(car); // Dela upp logik i metoder
+            transportationBed.load(car);
 
     }
 
