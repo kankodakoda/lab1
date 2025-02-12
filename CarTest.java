@@ -269,6 +269,7 @@ public class CarTest {
     public void testScaniaRampWhileMoving() {
         scania.gas(0.5);
         scania.raiseRamp(10);
+        System.out.println(scania);
         assertEquals(0, scania.getRampAngle(), 0.001);
     }
 
@@ -281,17 +282,17 @@ public class CarTest {
 
     @Test
     public void testCarTransportLoad() {
-        mercedes.loadCar(new Saab95(mercedes.getXPosition() + 3, mercedes.getYPosition() - 3));
-        mercedes.loadCar(new Volvo240(mercedes.getXPosition() + 2, mercedes.getYPosition() - 5));
+        mercedes.load(new Saab95(mercedes.getXPosition() + 3, mercedes.getYPosition() - 3));
+        mercedes.load(new Volvo240(mercedes.getXPosition() + 2, mercedes.getYPosition() - 5));
         assertEquals(2, mercedes.getVehicleCount());
     }
 
     @Test
     public void testCarTransportUnload() {
-        mercedes.loadCar(saab);
-        mercedes.loadCar(volvo);
-        mercedes.unloadCar(saab);
-        mercedes.unloadCar(volvo);
+        mercedes.load(saab);
+        mercedes.load(volvo);
+        mercedes.unload();
+        mercedes.unload();
         assertEquals(0, mercedes.getVehicleCount());
     }
 

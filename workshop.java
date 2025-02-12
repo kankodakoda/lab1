@@ -1,26 +1,26 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Workshop<T extends Car> {
     private final int capacity; // Max antal bilar verkstaden kan ta
-    private final ArrayList<T> vehicles; // Lista för att lagra fordon
+    private HashMap<T,T> vehicles;
 
     public Workshop(int capacity) {
         this.capacity = capacity;
-        this.vehicles = new ArrayList<T>();
+        vehicles = new HashMap<>();
     }
 
     public int getCapacity() {
         return capacity;
     }
 
-    public ArrayList<T> getVehicles() {
+    public HashMap<T,T> getVehicles() {
         return vehicles;
     }
 
     // Lägg till ett fordon i verkstaden
     public void addVehicle(T vehicle) {
         if (vehicles.size() < capacity) {
-            vehicles.add(vehicle);
+            vehicles.put(vehicle, vehicle);
             System.out.println(vehicle + " added to the workshop.");
         } else {
             System.out.println("Workshop is full. " + vehicle);
@@ -28,9 +28,9 @@ public class Workshop<T extends Car> {
     }
 
     // Ta bort ett fordon från verkstaden
-    public T removeVehicle() { // Referenser
+    public T removeVehicle(T t) {
         if (!vehicles.isEmpty()) {
-            T vehicle = vehicles.remove(vehicles.size() - 1);
+            T vehicle = vehicles.remove(t);
             System.out.println(vehicle.toString() + " removed from the workshop.");
             return vehicle;
         } else {
@@ -45,8 +45,8 @@ public class Workshop<T extends Car> {
             System.out.println("No vehicles in the workshop.");
         } else {
             System.out.println("Vehicles in the workshop:");
-            for (T vehicle : vehicles) {
-                System.out.println("- " + vehicle);
+            for (T vehicle : vehicles.values()) {
+                System.out.println("- " + vehicle.getModelName());
             }
         }
     }

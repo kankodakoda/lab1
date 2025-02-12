@@ -2,59 +2,52 @@ import java.awt.Color;
 import java.util.Stack;
 
 public class Mercedes extends Truck implements Loadable {
-
-    private final int loadSize;
-    private final Stack<Car> loadedCars;
+    private final TransportationBed transportationBed;
 
     public Mercedes(double xPosition, double yPosition) {
         super("Mercedes", 2, 90, Color.cyan, xPosition, yPosition, new OnOffLift());
-
-        loadedCars = new Stack<Car>();
-        loadSize = 20;
+        transportationBed = new TransportationBed(20);
     }
 
-    public Stack<Car>getLoadedCars() {
-        return loadedCars;
+    public int getLoadSize() {
+        return transportationBed.getLoadSize();
+    }
+
+    public Stack<Car> getLoadedCars() {
+        return transportationBed.getLoadedCars();
     }
 
     public int getVehicleCount() {
-        return loadedCars.size();
+        return transportationBed.getVehicleCount();
     }
 
+    private boolean isCarWithinRange(Car car) {
+            
+        return car.getXPosition() >= getXPosition() - 5
+            && car.getXPosition() <= getXPosition() + 5
+            && car.getYPosition() >= getYPosition() - 5
+            && car.getXPosition() <= getXPosition() + 5;
+
+    }
 
     @Override
-    public void loadCar(Car car) {
+    public void load(Car car) {
         // Loads a car onto the Mercedes
         if (isRaised()) {
-            System.out.println("cant load ramp is down ");
+            System.out.println("Can't load while ramp is up");
             return;
         }
-        else if (car.getModelName() == "Mercedes"){ // White list
-            System.out.println("Can't load car transportation");
-            return;
-        }
-        else if (getVehicleCount() >= loadSize) {
-            System.out.println("truck full");
-            return;
-        }
-        else if (car.getXPosition() >= getXPosition() - 5
-              && car.getXPosition() <= getXPosition() + 5
-              && car.getYPosition() >= getYPosition() - 5
-              && car.getXPosition() <= getXPosition() + 5)
+        else if (isCarWithinRange(car))
             // Car must be within a 5 m radius of the transport truck to be loaded
-            loadedCars.push(car); // Dela upp logik i metoder
+            transportationBed.load(car); // Dela upp logik i metoder
 
     }
 
     @Override
-    public void unloadCar(Car car) {
+    public Car unload() {
         // Removes car from truck
-        if (!loadedCars.empty())
-            loadedCars.pop();
-        else
-            System.out.println("No cars in truck");
-        return;
-
+        Car car = transportationBed.unload();
+        return car;
     }
 
 }

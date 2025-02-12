@@ -1,6 +1,6 @@
 public interface Loadable {
 
-    void loadCar(Car car);
+    void load(Car car);
 
-    void unloadCar(Car car);
+    Car unload();
 }
